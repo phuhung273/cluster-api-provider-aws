@@ -256,6 +256,7 @@ func AllNodesBeforeSuite(e2eCtx *E2EContext, data []byte) {
 				resourceCancel()
 				return
 			case <-e2eCtx.Environment.ResourceTicker.C:
+				defer func() { recover() }()
 				for k := range e2eCtx.Environment.Namespaces {
 					DumpSpecResources(resourceCtx, e2eCtx, k)
 				}
